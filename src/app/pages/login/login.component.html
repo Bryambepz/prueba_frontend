@@ -1,9 +1,9 @@
 <div class="container">
     <div class="card-form">
         <form action="login" class="form">
-            <input type="email" name="email" id="email" placeholder="Ingrese usuario">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <button>Ingreesar</button>
+            <input type="email" name="email" id="email" placeholder="Ingrese usuario" [(ngModel)]="username">
+            <input type="password" name="password" id="password" placeholder="Password" [(ngModel)]="password">
+            <button (click)="login()">Ingreesar</button>
         </form>
         <div class="footer-login">
             <label for="">Desarrollado por Bryam Parra</label>
