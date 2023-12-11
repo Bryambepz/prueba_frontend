@@ -20,7 +20,7 @@
             </div>
             <div class="card_inputs">
                 <label for="cedula">Cedula Persona</label>
-                <input type="text" name="cedula" id="cedula" placeholder="0101010101" [(ngModel)]="persona.id">
+                <input type="text" name="cedula" id="cedula" placeholder="0101010101" [(ngModel)]="persona.cedula">
 
                 <label for="nombre">Nombre Persona</label>
                 <input type="text" name="nombre" id="nombre" placeholder="Bryam" [(ngModel)]="persona.nombre">
@@ -46,14 +46,16 @@
                             <th>Name</th>
                             <th>Direccion</th>
                             <th>Telefono</th>
+                            <th></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-empresa>
-                        <tr (click)="onRowEditInitEmpresa(empresa)">
-                            <td>{{empresa.id}}</td>
-                            <td>{{empresa.nombre}}</td>
-                            <td>{{empresa.direccion}}</td>
-                            <td>{{empresa.telefono}}</td>
+                        <tr>
+                            <td (click)="onRowEditInitEmpresa(empresa)">{{empresa.id}}</td>
+                            <td (click)="onRowEditInitEmpresa(empresa)">{{empresa.nombre}}</td>
+                            <td (click)="onRowEditInitEmpresa(empresa)">{{empresa.direccion}}</td>
+                            <td (click)="onRowEditInitEmpresa(empresa)">{{empresa.telefono}}</td>
+                            <td><p-button icon="pi pi-plus" [rounded]="true" severity="info" [outlined]="true" (click)="addPersonOrEmpresa('empresa',personas, empresa)"></p-button></td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -81,8 +83,8 @@
                             <td (click)="onRowEditInitPersona(persona)">{{persona.fecha_nacimiento}}</td>
                             <td (click)="onRowEditInitPersona(persona)">{{persona.estudio}}</td>
                             <td>
-                                <!-- <p-button icon="pi pi-plus" (click)="addPersonOrEmpresa('persona',empresas)" class="p-button-rounded p-button-text"><label class=""></label></p-button> -->
-                                <p-button icon="pi pi-check" [rounded]="true" [outlined]="true"></p-button>
+                                <!-- <p-button icon="pi pi-plus" (click)="addPersonOrEmpresa('persona',empresas)" class="p-button-rounded p-button-text"></p-button> -->
+                                <p-button icon="pi pi-plus" [rounded]="true" severity="info" [outlined]="true" (click)="addPersonOrEmpresa('persona',empresas, persona)"></p-button>
                             </td>
                         </tr>
                     </ng-template>
@@ -110,10 +112,10 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-empresaPersona>
                     <tr>
-                        <td>{{ empresaPersona.empresa.nombre }}</td>
-                        <td>{{ empresaPersona.empresa.direccion }}</td>
-                        <td>{{ empresaPersona.persona.nombre }}</td>
-                        <td>{{ empresaPersona.persona.estudio }}</td>
+                        <td>{{ empresaPersona.empresaNombre }}</td>
+                        <td>{{ empresaPersona.empresaDireccion }}</td>
+                        <td>{{ empresaPersona.personaNombre }}</td>
+                        <td>{{ empresaPersona.personaEstudio }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="paginatorleft">

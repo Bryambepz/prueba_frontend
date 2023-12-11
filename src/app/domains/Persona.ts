@@ -7,5 +7,5 @@ export class Persona {
     nombre?: string;
     fecha_nacimiento?: Date;
     estudio?: string;
-    Empresas?: Empresa[];
+    empresas?: Empresa[];
 }

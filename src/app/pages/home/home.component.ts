@@ -80,6 +80,8 @@ export class HomeComponent implements OnInit {
         if ( response.statusCode == 201 ) {
           this.getPersonas();
           this.getEmpresarPersonas();
+        } else {
+          swal.fire("Error al crear", response.message,"error");
         }
       }
     )
@@ -197,17 +199,55 @@ export class HomeComponent implements OnInit {
     this.persona = new Persona();
   }
 
-  addPersonOrEmpresa(type:string, options:any[]){
+  addPersonOrEmpresa(type:string, options:any[], object:any){
+    
+    
+    let labelsSelect: string[] = [];
+    options.forEach( option => labelsSelect.push(option.nombre))
     swal.fire({
-      title: `Seleccione una ${type == 'empresa' ? 'empresa' : 'persona'}`,
-      input: "select",
-      inputOptions: {options},
+      title: `Seleccione una ${type == 'empresa' ? 'Persona' : 'Empresa'}`,
+      input: 'select',
+      inputOptions: { Opciones: labelsSelect },
       inputPlaceholder: `Seleccione`,
       showCancelButton: true,
       inputValidator: (value) => {
-        console.log(`el value es ${value}`);
-        
-      }
+        if (type == 'empresa') {
+
+          let empr: Empresa = object;
+          let pers: Persona = options[+value];
+          let create = true;
+          empr.personas?.forEach((emp) => {
+            if (emp.cedula == pers.cedula || emp.nombre == pers.nombre) {
+              create = false;
+            }
+          });
+          if (create) {
+            empr.personas?.push(pers);
+            this.empresa = empr;
+            console.log('create');
+
+            this.actualizarEmpresa();
+          }
+        } else {
+          console.log('se act per');
+          let pers: Persona = object;
+          let empr: Empresa = options[+value];
+          let create = true;
+          empr.personas?.forEach((emp) => {
+            if (emp.cedula == pers.cedula || emp.nombre == pers.nombre) {
+              create = false;
+            }
+          });
+
+          if (create) {
+            empr.personas?.push(pers);
+            this.empresa = empr;
+            console.log('created');
+
+            this.actualizarEmpresa();
+          }
+        }
+      },
     });
   }
 }
