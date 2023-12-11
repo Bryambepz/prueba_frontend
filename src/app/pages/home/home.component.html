@@ -1,4 +1,128 @@
-<div>
-    
+<div class="container">
+    <div class="container-cards">
+        <div class="card-forma">
+            <div class="card_inputs">
+                <label for="empresa">Nombre Empresa</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Cognoware" [(ngModel)]="empresa.nombre">
+
+                <label for="telefono">Telefono Empresa</label>
+                <input type="text" name="telefono" id="telefono" placeholder="20202020" [(ngModel)]="empresa.telefono">
+
+                <label for="direccion">Direccion Empresa</label>
+                <input type="text" name="direccion" id="direccion" placeholder="Av. Solano" [(ngModel)]="empresa.direccion">
+
+                <button (click)="isEditEmpresa ? actualizarEmpresa() : crearEmpresa()">
+                    {{ isEditEmpresa ? 'Actualizar Empresa' : 'Crear Empresa' }}
+                  </button>
+
+                <button *ngIf="isEditEmpresa" (click)="cleanEmpresa()">Cancelar</button>
+                  
+            </div>
+            <div class="card_inputs">
+                <label for="cedula">Cedula Persona</label>
+                <input type="text" name="cedula" id="cedula" placeholder="0101010101" [(ngModel)]="persona.id">
+
+                <label for="nombre">Nombre Persona</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Bryam" [(ngModel)]="persona.nombre">
+
+                <label for="fecha">Fecha Nacimiento Persona</label>
+                <input type="date" name="fecha" id="fecha" placeholder="Cognoware" [(ngModel)]="fecha_nacimiento">
+
+                <label for="estudio">Estudio Persona</label>
+                <input type="text" name="estudio" id="estudio" placeholder="Ingeniero" [(ngModel)]="persona.estudio">
+
+                <button (click)="isEditPersona ? actualizarPersona() : crearPersona()">
+                    {{ isEditPersona ? 'Actualizar Persona' : 'Crear Persona' }}
+                  </button>
+                <button *ngIf="isEditPersona" (click)="cleanPersona()">Cancelar</button>
+            </div>
+        </div>
+        <div class="container-info">
+            <div>
+                <p-table [value]="empresas" dataKey="code" [tableStyle]="{'width': '35%'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-empresa>
+                        <tr (click)="onRowEditInitEmpresa(empresa)">
+                            <td>{{empresa.id}}</td>
+                            <td>{{empresa.nombre}}</td>
+                            <td>{{empresa.direccion}}</td>
+                            <td>{{empresa.telefono}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div>
+                <p-table [value]="personas" dataKey="code" [tableStyle]="{'width': '55%'}"
+                    [paginator]="true" [rows]="5"
+                    currentPageReportTemplate="Visualizando {first} de {last} total {totalRecords} Personas"
+                    [rowsPerPageOptions]="[5,10,20]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Cedula</th>
+                            <th>Nombre</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Estudio</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-persona>
+                        <tr>
+                            <td (click)="onRowEditInitPersona(persona)">{{persona.id}}</td>
+                            <td (click)="onRowEditInitPersona(persona)">{{persona.cedula}}</td>
+                            <td (click)="onRowEditInitPersona(persona)">{{persona.nombre}}</td>
+                            <td (click)="onRowEditInitPersona(persona)">{{persona.fecha_nacimiento}}</td>
+                            <td (click)="onRowEditInitPersona(persona)">{{persona.estudio}}</td>
+                            <td>
+                                <!-- <p-button icon="pi pi-plus" (click)="addPersonOrEmpresa('persona',empresas)" class="p-button-rounded p-button-text"><label class=""></label></p-button> -->
+                                <p-button icon="pi pi-check" [rounded]="true" [outlined]="true"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="paginatorleft">
+                        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+                    </ng-template>
+                    <ng-template pTemplate="paginatorright">
+                        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div>
+            <p-table [value]="empresasPersonas" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="Visualizando {first} de {last} de {totalRecords} Datos"
+                [rowsPerPageOptions]="[5, 10, 20]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:25%">Nombre</th>
+                        <th style="width:25%">Direccion</th>
+                        <th style="width:25%">Persona</th>
+                        <th style="width:25%">Estudio</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-empresaPersona>
+                    <tr>
+                        <td>{{ empresaPersona.empresa.nombre }}</td>
+                        <td>{{ empresaPersona.empresa.direccion }}</td>
+                        <td>{{ empresaPersona.persona.nombre }}</td>
+                        <td>{{ empresaPersona.persona.estudio }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="paginatorleft">
+                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+                </ng-template>
+                <ng-template pTemplate="paginatorright">
+                    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
 </div>
-<p>home works!</p>

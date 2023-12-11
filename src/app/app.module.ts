@@ -8,6 +8,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,10 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     FormsModule,
     HttpClientModule,
+    TableModule,
+    ButtonModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
